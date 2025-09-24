@@ -3,22 +3,36 @@
 
 const names = ['Artem', "Maksim", "Danil"]
 
-console.log(names.map( () => {}))
+function reportNames(names) {
+    // Spread оператор - "распаковывает" (достает, копирует и тд.) все значения из массива или объекта
+    const sortedNames = [...names];
+    sortedNames.sort();
+    console.log(sortedNames);
+}
+// reportNames(names);
+console.log(names);
 
-function addName(names) {
-    names.push("Yulia")
+function getProductWithDiscount(product){
+    const productWithDiscount = {...product, price: product.price * 0.8}
+    //productWithDiscount.price *= 0.8;
+    return productWithDiscount
 }
 
-function sortNames(names) {
-    names.sort()
-}
-sortNames(names)
-// const names = ['Artem',"Danil", "Maksim" ]
+const product = {
+    name: "Product 1",
+    price: 100
+};
 
-function deleteLastName(names) {
-    names.pop()
-}
+const productWithDiscount = getProductWithDiscount(product);
+console.log(productWithDiscount);
+console.log(product);
 
-names.map( () => {
+// Деструктаризация - это спецаильный синтаксис, который позволяет "распоковать" 
+// объекты или массивы по переменным
 
-})
+
+const {price: productPrice, name} = product
+console.log(productPrice, name)
+
+const [name1, name2, name3] = names
+console.log(name1, name2, name3)

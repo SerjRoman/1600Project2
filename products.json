@@ -4,17 +4,17 @@
         "name": "Product 1",
             "price": 30,
         "category": "Keyboards"
-     },
-     {
+    },
+    {
         "id": 2,
         "name": "Product 2",
         "price": 3000,
         "category": "Computer"
     },
-     {
+    {
         "id": 3,
         "name": "Product 3",
         "price": 130,
-         "category": "Keyboards"
-     }
+        "category": "Keyboards"
+    }
 ]

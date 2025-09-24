@@ -25,6 +25,26 @@ app.get('/products', (req, res) => {
     res.status(200).json(products)
 })
 
+// Для того, щоб використовувати динамічний параметр в express
+// у посиланні ми вказуємо ":" і назву параметру.
+app.get('/products/:id', (req, res) => {
+    console.log(req.params)
+    // +"fdhasjdsa" -> NaN
+    const id = +req.params.id
+    if (isNaN(id)){
+        res.status(400).json("Id must be an Integer")
+        return;
+    }
+    const product = products.find((pr) => { 
+        return pr.id === id
+    }) 
+    if (!product) {
+        res.status(404).json("Product not found")
+        return
+    }
+    res.status(200).json(product)
+})
+
 // Запускаємо сервер(Сервер починає слухати вказаний порт і хост.)
 app.listen(PORT, HOST, ()=> {
     console.log("Server is running on http://localhost:8001")
