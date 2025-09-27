@@ -20,16 +20,33 @@ app.get('/', (req, res) => {
     console.log('New request')
     res.json('Hello world')
 })
-
+// Query 
+// http://localhost:8000/products?take=5
+   
+// undefined, '56', 'jfksdh', 'true'
+// с take - проверить, что take существует. Дальше проверить что не NaN. 
+//без take - отдать все продукты
 app.get('/products', (req, res) => {
-    res.status(200).json(products)
+    const take = req.query.take
+    console.log(take)
+    if (!take){
+        res.status(200).json(products)
+        return
+    }
+    if(isNaN(+take)){
+        res.status(400).json("Take must be an Integer")
+        return
+    }
+    const slicedProducts = products.slice(0, +take)
+
+
+    res.status(200).json(slicedProducts)
 })
 
 // Для того, щоб використовувати динамічний параметр в express
 // у посиланні ми вказуємо ":" і назву параметру.
 app.get('/products/:id', (req, res) => {
     console.log(req.params)
-    // +"fdhasjdsa" -> NaN
     const id = +req.params.id
     if (isNaN(id)){
         res.status(400).json("Id must be an Integer")
