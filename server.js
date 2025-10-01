@@ -2,8 +2,11 @@ const express = require('express')
 // Створюємо додаток express.
 const app = express()
 
+app.use(express.json())
+
 const path = require('path')
 const fs = require('fs')
+const fsPromises = require('fs/promises')
 // Вказує на конкретний комп'ютер у мережі Інтернет.
 const HOST = "localhost"
 // Вказує на конкретний процес на вказаному хості.
@@ -62,6 +65,35 @@ app.get('/products/:id', (req, res) => {
     res.status(200).json(product)
 })
 
+app.post('/products', async (req, res) =>{
+    console.log(req.body)
+    const body = req.body
+    if(!body){
+        res.status(422).json('Body is required!')
+        return
+    }
+    const newProduct = {...body, id: products.length + 1}
+    if(!newProduct.name){
+        res.status(422).json('Name is required!')
+        return
+    }
+    if(!newProduct.price){
+        res.status(422).json('Price is required!')
+        return
+    }
+    if(!newProduct.category){
+        res.status(422).json('Category is required!')
+        return
+    }
+    try {
+        products.push(newProduct)
+        await fsPromises.writeFile(productsPath, JSON.stringify(products, null, 4))
+        res.status(201).json('Successfully created')
+    } catch (error) {
+        console.log(error)
+        res.status(500).json("Product creation failed")
+    }
+})
 // Запускаємо сервер(Сервер починає слухати вказаний порт і хост.)
 app.listen(PORT, HOST, ()=> {
     console.log("Server is running on http://localhost:8001")

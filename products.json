@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Product 1",
-            "price": 30,
+        "price": 30,
         "category": "Keyboards"
     },
     {
@@ -16,5 +16,35 @@
         "name": "Product 3",
         "price": 130,
         "category": "Keyboards"
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 4
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 5
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 6
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 7
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 8
     }
 ]
