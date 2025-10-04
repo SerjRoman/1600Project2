@@ -46,5 +46,11 @@
         "price": 1000000,
         "category": "Mice",
         "id": 8
+    },
+    {
+        "name": "Product 4",
+        "price": 1000000,
+        "category": "Mice",
+        "id": 9
     }
 ]
