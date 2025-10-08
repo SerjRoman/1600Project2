@@ -1,28 +1,29 @@
-const path = require('path');
-const fs = require('fs');
-const fsPromises = require('fs/promises');
+import path from "path"
+import fs from "fs";
+import fsPromises from "fs/promises";
+
 
 // Отримуємо абсолютний шлях до json-файлу
 const productsPath = path.join(__dirname, "products.json")
 // Отримуємо дані з файлу у строковому форматі
 // За допомогою JSON.parse конвертуємо дані з строки до типу js
-const products = JSON.parse(fs.readFileSync(productsPath, 'UTF-8'))
+const products: {id: number, name: string, price: number, category: string}[] = JSON.parse(fs.readFileSync(productsPath, 'utf-8'))
 
 
-const ProductService = {
-    getAllProducts: (take) => {
+export const ProductService = {
+    getAllProducts: (take?: number) => {
         if (take){
             return products.slice(0, take)
         };
         return products
     },
-    getProductById: (id) => {
+    getProductById: (id: number) => {
         const product = products.find((pr) => { 
             return pr.id === id
         });
         return product
     },
-    createProduct: async (data) => {
+    createProduct: async (data: {name: string, price: number, category: string}) => {
         try {
             const newProduct = {...data, id: products.length + 1} // C
             products.push(newProduct) // Repo
@@ -34,6 +35,3 @@ const ProductService = {
         }
     },
 };
-
-
-module.exports = ProductService;

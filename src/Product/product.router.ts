@@ -10,10 +10,13 @@ Repository (Репозиторий) - предоставляет доступ п
 src - source code - исходный код
 */
 
-const express = require('express');
-const ProductController = require('./product.controller');
+// const express = require('express');
+// const ProductController = require('./product.controller');
 
-const ProductRouter = express.Router();
+import {Router} from "express" 
+import { ProductController } from "./product.controller";
+
+export const ProductRouter = Router();
 // Router
 // C - Controller
 // S - Service
@@ -26,4 +29,4 @@ ProductRouter.get('/products/:id', ProductController.getProductById)
 
 ProductRouter.post('/products', ProductController.createProduct)
 
-module.exports = ProductRouter;
+// export {ProductRouter};

@@ -1,7 +1,9 @@
-const ProductService = require("./product.service");
+import { Request, Response } from "express";
+import { ProductService } from "./product.service";
 
-const ProductController = {
-    getAllProducts: (req, res) => {      // C
+
+export const ProductController = {
+    getAllProducts: (req: Request, res: Response) => {      // Тип для req|res,Request | Reponse который из Express
         const take = req.query.take      // C
         console.log(take)
         if (!take){                      // C / S
@@ -15,8 +17,12 @@ const ProductController = {
         const slicedProducts = ProductService.getAllProducts(+take); // Repo
         res.status(200).json(slicedProducts)            // C
     },
-    getProductById:  (req, res) => {
+    getProductById:  (req: Request, res: Response) => {
         console.log(req.params)
+        if (!req.params.id){
+            res.status(400).json("Id is required")
+            return;
+        }
         const id = +req.params.id
         if (isNaN(id)){
             res.status(400).json("Id must be an Integer")
@@ -29,7 +35,7 @@ const ProductController = {
         }
         res.status(200).json(product)
     },
-    createProduct: async (req, res) =>{ // Router
+    createProduct: async (req: Request, res: Response) =>{ // Router
         console.log(req.body)
         const body = req.body                  // C
         if(!body){                             // C
@@ -57,5 +63,3 @@ const ProductController = {
         res.status(201).json('Successfully created') // C     
     }
 }
-
-module.exports = ProductController;

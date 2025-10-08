@@ -1,5 +1,10 @@
-const express = require('express')
-const ProductRouter = require('./Product/product.router')
+// const express = require('express')
+// const ProductRouter = require('./Product/product.router')
+
+// Скачать типизацию express при ошибке(смотреть на "express")
+import express from "express"
+import { ProductRouter } from "./Product/product.router"
+
 
 // Створюємо додаток express.
 const app = express()
