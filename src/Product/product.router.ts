@@ -28,5 +28,7 @@ ProductRouter.get('/products', ProductController.getAllProducts)
 ProductRouter.get('/products/:id', ProductController.getProductById)
 
 ProductRouter.post('/products', ProductController.createProduct)
+// PUT | PATCH
+ProductRouter.patch('/products/:id', ProductController.updateProduct)
 
 // export {ProductRouter};

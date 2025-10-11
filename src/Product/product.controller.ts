@@ -61,5 +61,29 @@ export const ProductController = {
             return   
         }
         res.status(201).json('Successfully created') // C     
+    },
+    async updateProduct(req: Request, res: Response){
+        if (!req.params.id){
+            res.status(400).json("Id is required")
+            return;
+        }
+        const id = +req.params.id
+        if (isNaN(id)){
+            res.status(400).json("Id must be an Integer")
+            return;
+        }
+        const body = req.body   
+        if(!body){
+            res.status(422).json('Body is required!')
+            return
+        }
+        const updatedProduct = await ProductService.updateProduct(id, body)
+        if (!updatedProduct){
+            res.status(500).json("Product updating failed")
+            return   
+        }
+        res.status(200).json('Successfully updated')
     }
 }
+// /products/8
+// body
