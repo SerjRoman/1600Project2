@@ -121,3 +121,63 @@ export { human, human2, saySomething, isAdmin }
 // import { human, human2, saySomething, isAdmin } from './main'
 
 export const number5 = 5
+
+
+
+
+// typeof 
+
+const number: unknown = "5"
+
+if (typeof number === 'object') {
+    
+}
+const artem: string = "Artem"
+
+const object = {
+    name: "",
+    id: 2,
+    price: 3
+}
+
+type Artem = typeof object
+
+// у typeof два варианта работы
+// 1. Как функция(или конструкция) во время выполнения кода, для проверки типов
+// 2. Как ключевое слово для получения типа любой переменной для ТИПИЗАЦИИ
+
+
+//  Type Assertion (Утверждение типа) — это способ сказать компилятору TypeScript: 
+//  "Эй, я, разработчик, знаю лучше тебя. Я уверен, что тип этого значения — вот такой".  
+
+//  Ключевые моменты:  - ЗАПИСАТЬ В КОНСПЕКТ
+//  1. Это НЕ преобразование или приведение типов
+//  2. Код не меняется во время выполнения. Это просто "подсказка" для компилятора на этапе проверки типов.
+//  3. Используется, когда TS определяет тип слишком широко (например, any или unknown), а вы точно знаете, что там на самом деле.
+
+const number1: unknown = 5
+
+const newString: string = (number1 as string) + "321"
+
+interface Animal { 
+    name: string
+}
+
+interface Bird extends Animal {
+    canFly: true
+}
+
+interface Pigeon extends Bird {
+    stupid: true
+}
+
+const bird: Pigeon = {name: "", canFly: true, stupid: true}
+
+interface SomeData1<T extends string> {
+    status: "ok" | "error",
+    data: T
+}
+
+const object: SomeData1<"hello"> = {}
+
+type SomeData3<T> = T | string | number
