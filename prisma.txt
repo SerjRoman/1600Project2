@@ -1,0 +1,22 @@
+1.  Download prisma(npm install prisma)
+2.  Initialize prisma our project(npx prisma init)
+3.  After initialisation .env file will be created as well as prisma folder
+4.  Add .evn in gitignore
+5.  We have prisma files with extension .prisma
+6.  Prisma gives us two concepts: 
+    1. Models
+    2. Client(prisma client) consits of prisma client class and types. Client is needed to make requests to DB
+7.  In the file schema.prisma in block datasource db we have to change provider to sqlite
+8.  In the file .env in variable DATABASE_URL we must define path to our database  
+
+.env - environment variables - перменные окружения
+
+In prisma there are attributes and functions 
+Attribute starts with @ or @@
+@id defines pk (primary key)
+@unique defines any unique field
+Function autoincrement() automatically increases id by 1
+prisma commands: 
+migrations - npx prisma migrate dev
+client generation - npx prisma generate
+seed = Добавление тестовых данных в бд

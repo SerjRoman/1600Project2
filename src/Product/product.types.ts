@@ -28,8 +28,20 @@ export interface ProductServiceContract {
 // ResBody - то, что будет в ответе (в res.json)
 // 
 export interface ProductControllerContract {
-    getAllProducts: (req: Request<void, Product[] | string, void, { take?: string }>, res: Response<Product[] | string>) => void
-    getProductById: (req: Request<{id : string}, string, void, { take?: any }>, res: Request <string>) => void // Artem
-    createProduct: (req: Request<null, ProductCreate[] | string, void {}>, res: Response) => Promise<void> // Kirill
-    updateProduct: (req: Request<{id: number}, ProductUpdate | >, res: Response) => Promise<void> // Gleb
+    getAllProducts: (
+        req: Request<void, Product[] | string, void, { take?: string }>, 
+        res: Response<Product[] | string>
+    ) => void
+    getProductById: (
+        req: Request<{id : string},  Product | string, object>, 
+        res: Response<Product | string>
+    ) => void 
+    createProduct: (
+        req: Request<object, string, ProductCreate>, 
+        res: Response<string>
+    ) => Promise<void> 
+    updateProduct: (
+        req: Request<{id: string}, string, ProductUpdate>, 
+        res: Response<string>
+    ) => Promise<void>
 }

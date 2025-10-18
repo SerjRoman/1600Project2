@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model Product {
+    // increment +1 | decrement -1
+    // 1 -> +&
+    id Int @id @default(autoincrement()) 
+    name String 
+    price Float
+    // FK - Foreign key
+    categoryId Int
+    //                          fields - поле в текущей(Product) модели, в котором храним FK
+    //                          references - поле в ДРУГОЙ(Category) модели, из которого берется значение для fields
+    category Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+    id Int @id @default(autoincrement())
+    name String @unique
+    products Product[]
+}
+// one-to-one many-to-one one-to-many many-to-many 
