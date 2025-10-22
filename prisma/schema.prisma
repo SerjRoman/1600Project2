@@ -14,23 +14,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Product {
-    // increment +1 | decrement -1
-    // 1 -> +&
-    id Int @id @default(autoincrement()) 
-    name String 
-    price Float
-    // FK - Foreign key
-    categoryId Int
-    //                          fields - поле в текущей(Product) модели, в котором храним FK
-    //                          references - поле в ДРУГОЙ(Category) модели, из которого берется значение для fields
-    category Category @relation(fields: [categoryId], references: [id])
+  // increment +1 | decrement -1
+  // 1 -> +&
+  id         Int      @id @default(autoincrement())
+  name       String
+  price      Float
+  // FK - Foreign key
+  categoryId Int
+  //                          fields - поле в текущей(Product) модели, в котором храним FK
+  //                          references - поле в ДРУГОЙ(Category) модели, из которого берется значение для fields
+  category   Category @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-    id Int @id @default(autoincrement())
-    name String @unique
-    products Product[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
 }
+
 // one-to-one many-to-one one-to-many many-to-many 
