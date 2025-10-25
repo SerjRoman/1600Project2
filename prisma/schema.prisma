@@ -20,6 +20,7 @@ model Product {
   id         Int      @id @default(autoincrement())
   name       String
   price      Float
+  image      String?
   // FK - Foreign key
   categoryId Int
   //                          fields - поле в текущей(Product) модели, в котором храним FK

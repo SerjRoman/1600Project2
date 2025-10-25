@@ -31,25 +31,25 @@ async function createProduct() {
         data: {
             name: "Mirror 2",
             price: 10,
-            // categoryId: 8
-            category: {
-                // connect - подключает к существующей сущности
-                // connect: {
-                //     name: "Laptops"
-                // }
-                // create - создает новую сущность И создает связь
-                // create: {
-                //     name: "Cups"
-                // },
-                // connectOrCreate: {
-                //     where: {
-                //         name: "Mirrors"
-                //     },
-                //     create: {
-                //         name: "Mirrors"
-                //     }
-                // }
-            },
+            categoryId: 8 // Unchecked
+            // category: {
+            //     // connect - подключает к существующей сущности
+            //     // connect: {
+            //     //     name: "Laptops"
+            //     // }
+            //     // create - создает новую сущность И создает связь
+            //     // create: {
+            //     //     name: "Cups"
+            //     // },
+            //     connectOrCreate: {
+            //         where: {
+            //             name: "Mirrors"
+            //         },
+            //         create: {
+            //             name: "Mirrors"
+            //         }
+            //     }
+            // },
         }
     })
     console.log(product)

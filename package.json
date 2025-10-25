@@ -6,7 +6,10 @@
   "scripts": {
     "start": "ts-node ./src/server.ts",
     "tstest": "ts-node ./main.ts",
-    "seed": "ts-node ./src/seed/seed.ts"
+    "seed": "ts-node ./src/seed/seed.ts",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "prisma:format": "prisma format"
   },
   "keywords": [],
   "author": "",
