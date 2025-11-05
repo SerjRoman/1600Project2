@@ -1,4 +1,4 @@
-import { PrismaClient } from "../client/prisma-client";
+import { Client } from "../client/prisma-client";
 import { Prisma } from "../generated/prisma";
 import { ProductRepositoryContract } from "./product.types";
 
@@ -7,7 +7,7 @@ export const ProductRepository: ProductRepositoryContract = {
     getProducts: async (take) =>{
         try {
             // Если возникает ошибка с take: undefined. В TSConfig.json ставим exactOptionalPropertyTypes: false
-            const products = await PrismaClient.product.findMany({
+            const products = await Client.product.findMany({
                 take: take
             })
             return products
@@ -24,19 +24,19 @@ export const ProductRepository: ProductRepositoryContract = {
         }
     },
     createProduct: async (data) =>{
-        return await PrismaClient.product.create({
+        return await Client.product.create({
             data
         })
     },
 
     updateProduct: async(id, data) => {
-       return await PrismaClient.product.update({
+       return await Client.product.update({
             where: {id},
             data: data
         })
     },
     getProductById(id) {
-        return PrismaClient.product.findUnique({
+        return Client.product.findUnique({
             where: {
                 id
             }

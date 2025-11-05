@@ -1,3 +1,3 @@
 import { PrismaClient as PC } from "../generated/prisma";
 
-export const PrismaClient = new PC()
+export const Client = new PC()
