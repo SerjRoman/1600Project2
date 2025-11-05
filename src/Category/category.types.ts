@@ -39,7 +39,7 @@ export interface CategoryControllerContract {
 }
 
 export interface CategoryRepositoryContract {
-    getAllCategory: (take?: number, skip?: number) => Promise<Category[]>
+    getAllCategories: (take?: number, skip?: number) => Promise<Category[]>
     getCategoryById: (id: number) => Promise<Category | null>
     createCategory: (data: CategoryCreate) => Promise< Category> 
     deleteCategory: (id: number) => Promise<Category>
