@@ -5,7 +5,7 @@ import { Client } from '../client/prisma-client'
 export const CategoryRepository: CategoryRepositoryContract = {
     async getAllCategory(take, skip){
         try {
-            const categories= Client.category.findMany({take, skip})
+             const categories= await Client.category.findMany({take, skip})
 
             return categories
             
@@ -19,7 +19,7 @@ export const CategoryRepository: CategoryRepositoryContract = {
     
     async getCategoryById(id){
         try {
-            return Client.category.findUnique({
+            return await Client.category.findUnique({
                 where:{id}
             })
         } catch (error) {
@@ -33,7 +33,7 @@ export const CategoryRepository: CategoryRepositoryContract = {
     
     async deleteCategory(id) {
         try{
-            const deletedCategory = Client.category.delete({where: {id}})
+            const deletedCategory = await Client.category.delete({where: {id}})
             return deletedCategory
         } catch (error) {
             console.log(error)
@@ -43,7 +43,7 @@ export const CategoryRepository: CategoryRepositoryContract = {
 
     async createCategory(data){
         try {
-            const createCategory = Client.category.create({data})
+            const createCategory = await Client.category.create({data})
             return createCategory
         } catch (error) {
             console.log(error)
