@@ -3,16 +3,14 @@ import { Client } from '../client/prisma-client'
 
 
 export const CategoryRepository: CategoryRepositoryContract = {
-    async getAllCategory(take, skip){
+    async getAllCategories(take, skip){
         try {
              const categories= await Client.category.findMany({take, skip})
 
             return categories
             
         } catch (error) {
-                if(error.code =="P2003"){
-                    console.log("Error")
-                }
+            console.log(error)
             throw error
         }
     },
