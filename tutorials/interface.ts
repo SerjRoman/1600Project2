@@ -24,7 +24,7 @@ const UserService: UserServiceContract = {
 
 
 interface Teapot {
-    brand: "Tefal"
+    brand: "Telaf"
 }
 type CoolString = string | null | undefined
 
