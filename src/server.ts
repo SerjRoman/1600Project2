@@ -5,7 +5,12 @@
 import express from "express"
 import { ProductRouter } from "./Product/product.router"
 import { CategoryRouter } from "./Category/category.router"
+import { UserRouter } from "./User/user.router"
 
+// npm i dotenv
+// import { config} from 'dotenv';
+// config()
+// process.env
 
 // Створюємо додаток express.
 const app = express()
@@ -13,6 +18,7 @@ const app = express()
 app.use(express.json())
 app.use(ProductRouter)
 app.use(CategoryRouter)
+app.use(UserRouter)
 // Вказує на конкретний комп'ютер у мережі Інтернет.
 const HOST = "localhost"
 // Вказує на конкретний процес на вказаному хості.

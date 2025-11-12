@@ -1,5 +1,6 @@
 import { Prisma } from "../generated/prisma";
 import { Request, Response } from "express";
+import { ErrorResponse } from "../genericTypes/error.types";
 
 export type User = Prisma.UserGetPayload<{}>
 export type UserWithoutPassword = Prisma.UserGetPayload<{ omit: { password: true } }>
@@ -15,47 +16,47 @@ export type RegisterCredentials = {
     username: string
     avatar?: string
 }
-export type UserCreate = Prisma.UserUncheckedCreateInput
-export interface UserControllerContract {
-    login(request: Request<object, string | UserWithoutPassword, LoginCredentials>, response: Response<string | UserWithoutPassword>): Promise<void>;
-    register(request: Request<object, string | UserWithoutPassword, RegisterCredentials>, response: Response<string | UserWithoutPassword>): Promise<void>;
+
+// Authentication
+export interface UserAuthenticationResponse{
+    token: string
 }
 
+
+export type UserCreate = Prisma.UserUncheckedCreateInput
+export interface UserControllerContract {
+    login(request: Request<object, ErrorResponse | UserAuthenticationResponse, LoginCredentials>, response: Response<ErrorResponse | UserAuthenticationResponse>): Promise<void>;
+    register(request: Request<object, ErrorResponse | UserAuthenticationResponse, RegisterCredentials>, response: Response<ErrorResponse | UserAuthenticationResponse>): Promise<void>;
+    me(request: Request<object, ErrorResponse | UserWithoutPassword>, response: Response<ErrorResponse | UserWithoutPassword>): Promise<void>
+}
+// headers - Authorization
+
 export interface UserServiceContract {
-    login(credentials: LoginCredentials): Promise<UserWithoutPassword>;
-    register(credentials: RegisterCredentials): Promise<UserWithoutPassword>;
+    login(credentials: LoginCredentials): Promise<string>;
+    register(credentials: RegisterCredentials): Promise<string>;
+    me(userId: number): Promise<UserWithoutPassword>
 }
 
 export interface UserRepositoryContract {
     getUserByEmail(email: string): Promise<User | null>
     createUser(userData: UserCreate): Promise<User>
+    getUserWithoutPasswordById(id: number): Promise<UserWithoutPassword | null>
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // CLient: Login -> POST /login
 // Django -> Request /login. Устанавливает Read-Only cookie  - id: 123
 // 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // id - 123

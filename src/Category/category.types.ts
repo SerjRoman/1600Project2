@@ -11,6 +11,7 @@
 
 import { Prisma } from "../generated/prisma";
 import { Request, Response } from "express";
+import { ErrorResponse } from "../genericTypes/error.types"
 
 
 // Тип самой категории
@@ -32,10 +33,10 @@ export interface CategoryServiceContract {
 }
 
 export interface CategoryControllerContract {
-    getAllCategories(request: Request<object, Category[] | string, object, {take?: string, skip?: string}>, response: Response<Category[] | string>): Promise<void>
-    getCategoryById(request: Request<{id: string}, Category | string | null>, response: Response<Category | string | null>): Promise<void>
-    createCategory(request: Request<object, Category | string, CategoryCreate>, response: Response<Category | string>): Promise<void>
-    deleteCategory(request: Request<{id: string}, Category | string>, response: Response<Category | string>): Promise<void>
+    getAllCategories(request: Request<object, Category[] | ErrorResponse, object, {take?: string, skip?: string}>, response: Response<Category[] | ErrorResponse>): Promise<void>
+    getCategoryById(request: Request<{id: string}, Category | ErrorResponse | null>, response: Response<Category | ErrorResponse | null>): Promise<void>
+    createCategory(request: Request<object, Category | ErrorResponse, CategoryCreate>, response: Response<Category | ErrorResponse>): Promise<void>
+    deleteCategory(request: Request<{id: string}, Category | ErrorResponse>, response: Response<Category | ErrorResponse>): Promise<void>
 }
 
 export interface CategoryRepositoryContract {

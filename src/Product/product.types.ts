@@ -1,8 +1,10 @@
 import { Request, Response } from 'express'
 import { Prisma } from '../generated/prisma'
+import { ErrorResponse } from '../genericTypes/error.types'
 // ModelGetPayload
 // В ModelGetPayload можно передать параметры: select, omit, include
 export type Product = Prisma.ProductGetPayload<{}>
+
 
 export type ProductCreate = Prisma.ProductUncheckedCreateInput
 // Unchecked - {categoryId: number} | 
@@ -26,20 +28,20 @@ export interface ProductRepositoryContract {
 
 export interface ProductControllerContract {
     getAllProducts: (
-        req: Request<void, Product[] | string, void, { take?: string }>,
-        res: Response<Product[] | string>
+        req: Request<void, Product[] | ErrorResponse, void, { take?: string }>,
+        res: Response<Product[] | ErrorResponse>
     ) => void
     getProductById: (
-        req: Request<{ id: string }, Product | string, object>,
-        res: Response<Product | string>
+        req: Request<{ id: string }, Product | ErrorResponse, object>,
+        res: Response<Product | ErrorResponse>
     ) => void
     createProduct: (
-        req: Request<object, string, ProductCreate>,
-        res: Response<string>
+        req: Request<object, string | ErrorResponse, ProductCreate>,
+        res: Response<string | ErrorResponse>
     ) => Promise<void>
     updateProduct: (
-        req: Request<{ id: string }, string, ProductUpdate>,
-        res: Response<string>
+        req: Request<{ id: string }, string | ErrorResponse, ProductUpdate>,
+        res: Response<string | ErrorResponse>
     ) => Promise<void>
 }
 

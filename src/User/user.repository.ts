@@ -23,5 +23,19 @@ export const UserRepository: UserRepositoryContract = {
             console.log(error)
             throw error
         }
+    },
+    async getUserWithoutPasswordById(id){
+        try{
+            return await Client.user.findUnique({
+                where: {id},
+                omit: {
+                    password: true
+                }
+            })
+        }
+        catch (error){
+            console.log(error)
+            throw error
+        }
     }
 }

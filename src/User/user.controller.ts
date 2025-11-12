@@ -1,5 +1,7 @@
 import { UserControllerContract } from "./user.types"
 import { UserService } from "./user.service"
+import { TokenExpiredError, verify } from "jsonwebtoken"
+import { ENV } from "../config/env"
 
 // USER_EXISTS -> пользователь существует
 // NOT_FOUND -> Не найден(пользователь). 404 HTTP STATUS CODE
@@ -10,15 +12,15 @@ export const UserController: UserControllerContract = {
         try {
             const data = req.body
             const user = await UserService.login(data)
-            res.status(200).json(user)
+            res.status(200).json({ token: user })
         } catch (error) {
             console.log(error)
             if (error instanceof Error) {
                 if (error.message === 'NOT_FOUND') {
-                    res.status(404).json("User with this email does not exist!")
+                    res.status(404).json({ message: "User with this email does not exist!" })
                     return
                 } else if (error.message === 'WRONG_CREDENTIALS') {
-                    res.status(401).json("User with this email does not exist!")
+                    res.status(401).json({ message: "User with this email does not exist!" })
                     return
                 }
                 // switch (error.message) {
@@ -32,24 +34,62 @@ export const UserController: UserControllerContract = {
                 //         res.status(500).json('Server error. Try again later')
                 // }
             }
-            res.status(500).json('Server error. Try again later')
+            res.status(500).json({ message: 'Server error. Try again later' })
         }
     },
     async register(request, response) {
         try {
             const data = request.body
             const newUser = await UserService.register(data)
-            response.status(201).json(newUser)
+            response.status(201).json({ token: newUser })
         }
         catch (error) {
             console.log(error)
             if (error instanceof Error) {
                 if (error.message === 'USER_EXISTS') {
-                    response.status(409).json("User with this email already exists!")
+                    response.status(409).json({ message: "User with this email already exists!" })
                     return
                 }
             }
-            response.status(500).json('Server error. Try again later')
+            response.status(500).json({ message: 'Server error. Try again later' })
+        }
+    },
+    async me(request, response) {
+        try {
+            // request.headers
+            // "Bearer TOKEN"
+            // "TOKEN"
+            const authorization = request.headers.authorization
+            if(!authorization){
+                response.status(401).json({message: "Authorization is required"})
+                return
+            }
+            const [type, token] = authorization.split(" ") // ["Bearer", "TOKEN"]
+            if(!type  ||  type != 'Bearer' || !token){
+                response.status(401).json({message:"Authorization is in wrong format"})
+                return
+            }
+            const payload = verify(token, ENV.JWT_ACCESS_SECRET_KEY) 
+            if(typeof(payload) == 'string'){
+                response.status(401).json({message: "Error with token, try again"})
+                return
+            }
+            // iat - issued at
+            // exp - expires
+            response.status(200).json(await UserService.me(payload.id))
+        } catch (error) {
+            if (error instanceof Error) {
+                if (error.message === 'NOT_FOUND') {
+                    response.status(404).json({ message: "User not found!" })
+                    return
+                }
+            }
+            if (error instanceof TokenExpiredError) {
+                response.status(401).json({message: "Token is expired! You must renew token"})
+                return
+            }
+            response.status(500).json({ message: 'Server error. Try again later' })
+
         }
     }
 }

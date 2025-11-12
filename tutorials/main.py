@@ -1,3 +1,7 @@
+'''
+    The great Parking
+'''
+
 
 names = ["Danil", "Artem", "Maksim"]
 
