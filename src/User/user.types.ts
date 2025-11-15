@@ -27,7 +27,7 @@ export type UserCreate = Prisma.UserUncheckedCreateInput
 export interface UserControllerContract {
     login(request: Request<object, ErrorResponse | UserAuthenticationResponse, LoginCredentials>, response: Response<ErrorResponse | UserAuthenticationResponse>): Promise<void>;
     register(request: Request<object, ErrorResponse | UserAuthenticationResponse, RegisterCredentials>, response: Response<ErrorResponse | UserAuthenticationResponse>): Promise<void>;
-    me(request: Request<object, ErrorResponse | UserWithoutPassword>, response: Response<ErrorResponse | UserWithoutPassword>): Promise<void>
+    me(request: Request<object, ErrorResponse | UserWithoutPassword, object, object, {userId: number}>, response: Response<ErrorResponse | UserWithoutPassword, {userId: number}>): Promise<void>
 }
 // headers - Authorization
 

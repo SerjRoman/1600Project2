@@ -56,37 +56,13 @@ export const UserController: UserControllerContract = {
     },
     async me(request, response) {
         try {
-            // request.headers
-            // "Bearer TOKEN"
-            // "TOKEN"
-            const authorization = request.headers.authorization
-            if(!authorization){
-                response.status(401).json({message: "Authorization is required"})
-                return
-            }
-            const [type, token] = authorization.split(" ") // ["Bearer", "TOKEN"]
-            if(!type  ||  type != 'Bearer' || !token){
-                response.status(401).json({message:"Authorization is in wrong format"})
-                return
-            }
-            const payload = verify(token, ENV.JWT_ACCESS_SECRET_KEY) 
-            if(typeof(payload) == 'string'){
-                response.status(401).json({message: "Error with token, try again"})
-                return
-            }
-            // iat - issued at
-            // exp - expires
-            response.status(200).json(await UserService.me(payload.id))
+            response.status(200).json(await UserService.me(response.locals.userId))
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message === 'NOT_FOUND') {
                     response.status(404).json({ message: "User not found!" })
                     return
                 }
-            }
-            if (error instanceof TokenExpiredError) {
-                response.status(401).json({message: "Token is expired! You must renew token"})
-                return
             }
             response.status(500).json({ message: 'Server error. Try again later' })
 

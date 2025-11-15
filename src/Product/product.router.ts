@@ -21,14 +21,14 @@ export const ProductRouter = Router();
 // C - Controller
 // S - Service
 // R (repo) - Repository
-ProductRouter.get('/products', ProductController.getAllProducts)
+ProductRouter.get('/', ProductController.getAllProducts)
 
 // Для того, щоб використовувати динамічний параметр в express
 // у посиланні ми вказуємо ":" і назву параметру.
-ProductRouter.get('/products/:id', ProductController.getProductById)
+ProductRouter.get('/:id', ProductController.getProductById)
 
-ProductRouter.post('/products', ProductController.createProduct)
+ProductRouter.post('/', ProductController.createProduct)
 // PUT | PATCH
-ProductRouter.patch('/products/:id', ProductController.updateProduct)
+ProductRouter.patch('/:id', ProductController.updateProduct)
 
 // export {ProductRouter};

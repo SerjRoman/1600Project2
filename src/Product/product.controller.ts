@@ -26,6 +26,7 @@ export const ProductController: ProductControllerContract = {
         try {
             if (!req.params.id){
                 res.status(400).json({message: "Id is required"})
+                
                 return;
             }
             const id = +req.params.id

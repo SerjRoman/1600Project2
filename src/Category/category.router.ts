@@ -3,7 +3,7 @@ import { CategoryController } from "./category.controller";
 
 export const CategoryRouter = Router();
 
-CategoryRouter.get('/categories', CategoryController.getAllCategories)
-CategoryRouter.get('/categories/:id', CategoryController.getCategoryById)
-CategoryRouter.post('/categories', CategoryController.createCategory)
-CategoryRouter.delete('/categories/:id', CategoryController.deleteCategory)
+CategoryRouter.get('/', CategoryController.getAllCategories)
+CategoryRouter.get('/:id', CategoryController.getCategoryById)
+CategoryRouter.post('/', CategoryController.createCategory)
+CategoryRouter.delete('/:id', CategoryController.deleteCategory)
