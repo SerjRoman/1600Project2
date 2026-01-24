@@ -125,11 +125,24 @@ async function deleteCategory() {
     console.log(category)
 }
 // deleteCategory()
-async function deleteCategories() {
-    const categories = await client.category.deleteMany({
+async function deleteProducts() {
+    const products = await client.product.update({
+        where: {
+            id: 13
+        },
+        data: 
+            {
+                name: "Kitty 6",
+                price: 15,
+                categoryId: 6,
+                image: "https://www.cats.org.uk/media/13136/220325case013.jpg"
+
+            },
+
     })
-    console.log(categories)
+    console.log(products)
 }
+deleteProducts()
 // deleteCategories()
 async function updateCategory() {
     const categories = await client.category.update({

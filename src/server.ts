@@ -1,5 +1,3 @@
-// const express = require('express')
-// const ProductRouter = require('./Product/product.router')
 
 // Скачать типизацию express при ошибке(смотреть на "express")
 import express from "express"
@@ -7,8 +5,11 @@ import { ProductRouter } from "./Product/product.router"
 import { CategoryRouter } from "./Category/category.router"
 import { UserRouter } from "./User/user.router"
 import { logMiddleware } from "./middlewares/log.middleware"
-import { authMiddleware } from "./middlewares/auth.middleware"
+import cors from 'cors'
+// npm i cors @types/cors
 
+
+// Cross Origin Resource Sharing
 // npm i dotenv
 // import { config} from 'dotenv';
 // config()
@@ -17,6 +18,9 @@ import { authMiddleware } from "./middlewares/auth.middleware"
 // Створюємо додаток express.
 const app = express()
 
+app.use(cors({
+    origin: ["http://localhost:3000"]
+}))
 app.use(express.json())
 
 app.use(logMiddleware)

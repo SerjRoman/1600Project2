@@ -8,7 +8,10 @@ export const ProductRepository: ProductRepositoryContract = {
         try {
             // Если возникает ошибка с take: undefined. В TSConfig.json ставим exactOptionalPropertyTypes: false
             const products = await Client.product.findMany({
-                take: take
+                take: take,
+                where: {
+                    name: {}
+                }
             })
             return products
             

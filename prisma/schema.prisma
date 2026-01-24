@@ -21,6 +21,7 @@ model Product {
   name       String
   price      Float
   image      String?
+  description String
   // FK - Foreign key
   categoryId Int
   //                          fields - поле в текущей(Product) модели, в котором храним FK
